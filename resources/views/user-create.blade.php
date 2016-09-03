@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>创建用户</title>
-    <link rel="stylesheet" type="text/css" href="http://overtrue.me/bootstrap-theme-slim/dist/css/slim-min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/slim-min.css') }}">
     <style type="text/css" media="screen">
         .card {
             max-width: 500px;
@@ -18,13 +18,14 @@
             </div>
             <div class="card-block">
                 <form class="form-horizontal" action="{{ url('user/store') }}" method="post" enctype="multipart/form-data">
+                    @include('errors.errors')
                     <div class="from-group">
                         <label for="username">用户名</label>
                         <input type="text" name="username" class="form-control" value="{{ old('username') }}">
                     </div>
                     <div class="from-group">
                         <label for="email">邮箱</label>
-                        <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+                        <input type="text" name="email" class="form-control" value="{{ old('email') }}">
                     </div>
                     <div class="from-group">
                         <label for="password">密码</label>

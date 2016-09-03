@@ -94,8 +94,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'field-name' => [
+            'rule-name' => '',
         ],
     ],
 

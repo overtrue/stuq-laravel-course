@@ -17,10 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('test/request', function(){
-    dd(Request::get('name'));
-});
 // 展示表单页
 Route::get('user/create', 'UserController@create');
 // 接收POST过来的表单内容
 Route::post('user/store', 'UserController@store');
+Route::get('di', 'UserController@container');

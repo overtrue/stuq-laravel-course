@@ -2,48 +2,73 @@
 
 namespace App\Http\Controllers;
 
+use App;
+use App\User;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use App\Http\Requests\CreateUserRequest;
 
 class UserController extends Controller
 {
+    protected $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
     public function create()
     {
         return response()->view('user-create')->cookie('foo', 'bar', 45);
     }
 
-    public function store(Request $request)
+    public function container()
     {
-        // if ($request->has('username')) {
-        //     return 'Request has username';
-        // } else {
-        //     return 'Request has not username.';
-        // }
-        // dd($request->all());
-        // dd($request->input('email'));
-        // dd($request->input('name', '匿名用户'));
-        // dd($request->username);
-        // dd($request->input('extends.province'));
-        // 只获取 用户名与邮箱
-        // dd($request->only(['username', 'email']));
-        // 排除某些字段
-        // dd($request->except('email', 'extends.city'));
-        // $request->flash();
-        // dd($request->cookie('foo'));
-        //
-        $file = $request->file('avatar');
+        // App::find('user', function(){
+        //      echo 'making user.';
+        //      return new User();
+        // });
+        App::singleton('user', function(){
+            echo 'making user.';
+            return new User();
+        });
 
-        // 获取 一个对象的方法列表
-        // dd(get_class_methods($file));
-        // dd($file->getClientOriginalName());
-        // dd($file->path());
-        // dd($file->extension());
-        // dd($file->getSize());
-        //
-        // dd($file->store('images'));
-        // dd($file->storeAs('images', 'abc.png', 'public'));
+        app('user');
 
-        return back()->withInput($request->except('extends.city'));
+        // App::make('user');
+        // App::make('user');
+        // App::make('user');
+        // App::make('user');
+        // App::make('user');
+        //
+        // $user = new User();
+
+        // App::instance('user', $user);
+
+        // dd(App::make('user'));
+
+
+        return 'this is container method.';
+    }
+
+    public function store()
+    {
+        $rules = [
+            'username' => 'required',
+            'email' => 'required|email',
+            'avatar' => 'required',
+        ];
+        // $messages = [
+        //     'required' => ':attribute 必填哦！'
+        // ];
+
+        // $messages = [
+        //     'username.required' => '你都不填写用户名，我怎么找到你呢？'
+        // ];
+
+        // $this->validate($request, $rules, $messages);
+        $this->validate($this->request, $rules);
+
+        return 'user created.';
     }
 }
