@@ -21,3 +21,20 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Post::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => mt_rand(1, 29),
+        'content' => $faker->paragraph,
+        'votes' => mt_rand(1, 800),
+    ];
+});
+
+$factory->define(App\Video::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => mt_rand(1, 29),
+        'title' => $faker->title,
+        'url' => $faker->url,
+    ];
+});
+
