@@ -14,22 +14,21 @@ use Illuminate\Http\Request;
 
 // Auth::loginUsingId(4);
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'HomeController@index');
+
+Route::group(['prefix' => '/books'], function(){
+    Route::get('new', 'BookController@create');
+    Route::post('store', 'BookController@store');
+    Route::post('update/{id}', 'BookController@update');
+    Route::get('view/{id}', 'BookController@view');
+    Route::get('edit/{id}', 'BookController@edit');
+    Route::get('delete/{id}', 'BookController@delete');
+
+    Route::get('/trashed', 'BookController@trashed');
+    Route::get('/restore/{id}', 'BookController@restore');
+    Route::get('/restore-all', 'BookController@restoreAll');
+    Route::get('/force-delete/{id}', 'BookController@forceDelete');
+    Route::get('/clean-trashed', 'BookController@cleanTrashed');
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-Route::get('/hello', function(Request $request){
-    // Auth::user();
-    return view('hello')->with('user', $request->user());
-})->middleware('auth');
-
-Route::get('admin', function() {
-    if (Auth::attempt(['name' => 'overtrue', 'password' => 1234568])) {
-        return '管理后台';
-    }
-
-    return '登录失败';
-});

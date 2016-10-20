@@ -18,8 +18,9 @@
 </style>
 <div class="container">
         <div class="panel panel-default">
-            <div class="panel-heading">书本列表
-                <a href="{{ url('books/trashed') }}">回收站</a>
+            <div class="panel-heading">回收站
+                <a href="{{ url('books/restore-all') }}">还原全部</a>
+                <a href="{{ url('books/clean-trashed') }}" class="text-danger"  onclick="return confirm('删除不可恢复，你真的打算彻底删除全部吗？')">清空回收站</a>
                 <div class="pull-right text-right">
                     <a href="{{ URL::current() }}">全部</a>
                     @foreach($categories as $category)
@@ -31,7 +32,7 @@
             <div class="panel-body books">
                 <div class="row">
                 @if($books->isEmpty())
-                <div class="col-md-12 text-center">空空如也~ <a href="{{ url('books/new') }}">添加图书</a></div>
+                <div class="col-md-12 text-center">空空如也~</div>
                 @endif
                 @foreach($books as $book)
                     <div class="col-md-3">
@@ -41,6 +42,9 @@
                             </div>
                             <div class="card-block">
                                 <a href="{{ url('books/view/'.$book->id) }}" ><h5 class="card-title">{{ $book->title }}</h5></a>
+
+                                <a href="{{ url('books/force-delete/'.$book->id) }}" class="text-danger" onclick="return confirm('删除不可恢复，你真的打算彻底删除它吗？')">删除</a>
+                                <a href="{{ url('books/restore/'.$book->id) }}" class="text-success">还原</a>
                             </div>
                         </div>
                     </div>

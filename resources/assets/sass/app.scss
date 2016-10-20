@@ -7,3 +7,12 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+.books {
+    .card {
+        .card-img-top {
+            height: 200px;
+        }
+    }
+}

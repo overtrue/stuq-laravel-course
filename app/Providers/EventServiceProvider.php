@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'Illuminate\Auth\Events\Registered' => [
-            'App\Listeners\RegisterEventListener',
+        'App\Events\BookViewed' => [
+            'App\Listeners\BookViewedListener',
         ],
     ];
 
